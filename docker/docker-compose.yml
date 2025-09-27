@@ -9,5 +9,9 @@ services:
       TZ: Asia/Kolkata
     ports:
       - "5432:5432"
-#    volumes:
-#      - "/mnt/d/docker-volumes/ClearingStreams/postgres:/var/lib/postgresql/data"
+
+  kafka:
+    image: apache/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
