@@ -3,7 +3,6 @@ package com.cs.ClearingStreams;
 import com.cs.ClearingStreams.dtos.CanonicalTransactionDto;
 import com.cs.ClearingStreams.dtos.RuleResult;
 import com.cs.ClearingStreams.rules.SanctionRule;
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
