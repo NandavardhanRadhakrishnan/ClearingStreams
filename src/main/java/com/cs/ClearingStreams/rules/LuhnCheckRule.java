@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class LuhnCheckRule implements Rule{
+public class LuhnCheckRule implements Rule {
 
     @Override
     public String getName() {
@@ -20,34 +20,34 @@ public class LuhnCheckRule implements Rule{
     public RuleResult<CanonicalTransactionDto> apply(CanonicalTransactionDto dto) {
         List<RuleResult.RuleFailure> failures = new ArrayList<>();
 
-        if(!luhnCheck(dto.getPayer().getAccount())){
+        if (!luhnCheck(dto.getPayer().getAccount())) {
             failures.add(new RuleResult.RuleFailure(
-                getName(),
-                "Invalid account number",
-                CanonicalTransactionDto.Fields.payer,
-                AccountDto.Fields.account
+                    getName(),
+                    "Invalid account number",
+                    CanonicalTransactionDto.Fields.payer,
+                    AccountDto.Fields.account
             ));
         }
 
-        if (!luhnCheck(dto.getPayee().getAccount())){
+        if (!luhnCheck(dto.getPayee().getAccount())) {
             failures.add(new RuleResult.RuleFailure(
-               getName(),
-               "Invalid account number",
-               CanonicalTransactionDto.Fields.payee,
-               AccountDto.Fields.account
+                    getName(),
+                    "Invalid account number",
+                    CanonicalTransactionDto.Fields.payee,
+                    AccountDto.Fields.account
             ));
         }
 
         return failures.isEmpty() ? RuleResult.pass() : RuleResult.fail(dto, failures);
     }
 
-    public boolean luhnCheck(String accountNo){
+    public boolean luhnCheck(String accountNo) {
         int len = accountNo.length();
         int totalSum = 0;
         String accountNoReversed = new StringBuilder(accountNo).reverse().toString();
         for (int i = 0; i < len; i++) {
             int weight = (i % 2) + 1;
-            int weightedValue = weight * (accountNoReversed.charAt(i)-'0');
+            int weightedValue = weight * (accountNoReversed.charAt(i) - '0');
             totalSum += weightedValue > 9 ? weightedValue - 9 : weightedValue;
         }
         System.out.println(totalSum);

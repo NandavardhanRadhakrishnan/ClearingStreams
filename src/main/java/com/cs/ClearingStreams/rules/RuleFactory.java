@@ -21,20 +21,20 @@ public class RuleFactory {
 
     public RuleFactory(Map<String, Rule> ruleMap, RuleMasterRepository ruleMasterRepository) {
 //        spring injects all beans of type Rule updating their name to match getName
-        this.ruleMap = ruleMap.values().stream().collect(Collectors.toMap(Rule::getName, r->r));
+        this.ruleMap = ruleMap.values().stream().collect(Collectors.toMap(Rule::getName, r -> r));
         this.ruleMasterRepository = ruleMasterRepository;
     }
 
-    public Rule getRule(String ruleName){
+    public Rule getRule(String ruleName) {
         Rule rule = ruleMap.get(ruleName);
 
-        if(Objects.isNull(rule)){
-            throw new IllegalArgumentException("No rule found for: "+ ruleName);
+        if (Objects.isNull(rule)) {
+            throw new IllegalArgumentException("No rule found for: " + ruleName);
         }
         return rule;
     }
 
-    public List<Rule> getRulesForType(TransactionType transactionType){
+    public List<Rule> getRulesForType(TransactionType transactionType) {
         return ruleMasterRepository.findRuleMasterEntitiesByTypeOrderByPriority(transactionType)
                 .stream()
                 .map(ruleMasterEntity -> getRule(ruleMasterEntity.getRule()))

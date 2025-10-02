@@ -16,13 +16,13 @@ public class RuleOrchestrator {
 
     private final RuleFactory ruleFactory;
 
-    public List<RuleResult<CanonicalTransactionDto>> validate(CanonicalTransactionDto dto){
+    public List<RuleResult<CanonicalTransactionDto>> validate(CanonicalTransactionDto dto) {
 
-        List<RuleResult<CanonicalTransactionDto>> results =  new ArrayList<>();
+        List<RuleResult<CanonicalTransactionDto>> results = new ArrayList<>();
         List<Rule> rules = ruleFactory.getRulesForType(dto.getType());
 
-        for (Rule rule:rules){
-             results.add(rule.apply(dto));
+        for (Rule rule : rules) {
+            results.add(rule.apply(dto));
         }
 
         return results;

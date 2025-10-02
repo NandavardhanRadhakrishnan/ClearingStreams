@@ -12,7 +12,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Component
-public class SanctionRule implements Rule{
+public class SanctionRule implements Rule {
 
     private SanctionRepository sanctionRepository;
 
@@ -26,7 +26,7 @@ public class SanctionRule implements Rule{
         List<String> sanctioned = sanctionRepository.findCountryCodesByActiveTrue();
         List<RuleResult.RuleFailure> failures = new ArrayList<>();
 
-        if (sanctioned.contains(dto.getPayer().getCountry().getCountry())){
+        if (sanctioned.contains(dto.getPayer().getCountry().getCountry())) {
             failures.add(new RuleResult.RuleFailure(
                     getName(),
                     "Transaction involves sanctioned country",
@@ -35,7 +35,7 @@ public class SanctionRule implements Rule{
             ));
         }
 
-        if (sanctioned.contains(dto.getPayee().getCountry().getCountry())){
+        if (sanctioned.contains(dto.getPayee().getCountry().getCountry())) {
             failures.add(new RuleResult.RuleFailure(
                     getName(),
                     "Transaction involves sanctioned country",

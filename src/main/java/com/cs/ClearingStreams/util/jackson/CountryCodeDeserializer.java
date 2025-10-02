@@ -13,8 +13,8 @@ public class CountryCodeDeserializer extends JsonDeserializer<Locale> {
     @Override
     public Locale deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         String code = jsonParser.getText();
-        if(!Arrays.asList(Locale.getISOCountries()).contains(code)){
-            throw deserializationContext.weirdStringException(code, Locale.class,"Invalid country code");
+        if (!Arrays.asList(Locale.getISOCountries()).contains(code)) {
+            throw deserializationContext.weirdStringException(code, Locale.class, "Invalid country code");
         }
         return new Locale("", code);
     }

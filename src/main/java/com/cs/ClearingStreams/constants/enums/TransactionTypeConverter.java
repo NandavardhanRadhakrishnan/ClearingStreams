@@ -7,11 +7,11 @@ import jakarta.persistence.Converter;
 public class TransactionTypeConverter implements AttributeConverter<TransactionType, String> {
     @Override
     public String convertToDatabaseColumn(TransactionType transactionType) {
-        return transactionType == null ? null:transactionType.name();
+        return transactionType == null ? null : transactionType.name();
     }
 
     @Override
     public TransactionType convertToEntityAttribute(String s) {
-        return s == null ? null:TransactionType.valueOf(s);
+        return s == null ? null : TransactionType.valueOf(s);
     }
 }

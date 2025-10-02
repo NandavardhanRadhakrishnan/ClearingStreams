@@ -33,18 +33,20 @@ public class testController {
     private final RuleOrchestrator ruleOrchestrator;
 
     @GetMapping("/CTD")
-        public ResponseEntity<RuleResult<CanonicalTransactionDto>> get(
-                @RequestBody CanonicalTransactionDto dto
+    public ResponseEntity<RuleResult<CanonicalTransactionDto>> get(
+            @RequestBody CanonicalTransactionDto dto
     ) {
         return ResponseEntity.ok(amountLimitRule.apply(dto));
     }
 
-    @GetMapping("/foo") public String foo(){
+    @GetMapping("/foo")
+    public String foo() {
         List<RuleMasterEntity> rules = ruleMasterRepository.findRuleMasterEntitiesByTypeOrderByPriority(TransactionType.CARD);
         return "done";
     }
 
-    @GetMapping("/hydrateRates") public String sync(){
+    @GetMapping("/hydrateRates")
+    public String sync() {
         exchangeRateService.hydrate();
         return "done";
     }

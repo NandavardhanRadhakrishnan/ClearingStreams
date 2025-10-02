@@ -19,20 +19,20 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ExchangeRateService {
 
-//    TODO: replace with a proper api client
+    //    TODO: replace with a proper api client
     private final RestTemplate restTemplate = new RestTemplate();
     private final ExchangeRateRepository exchangeRateRepository;
 
     @Value("${exchange.endpoint}")
     private String endpoint;
 
-    public void hydrate(){
+    public void hydrate() {
         JsonNode response = restTemplate.getForObject(endpoint, JsonNode.class);
         List<ExchangeRateEntity> exchangeRateEntities = new ArrayList<>();
 
         response.get("conversion_rates").forEachEntry(
                 (currencyCode, rate) -> {
-                    exchangeRateEntities.add(new ExchangeRateEntity(currencyCode,BigDecimal.valueOf(rate.asDouble())));
+                    exchangeRateEntities.add(new ExchangeRateEntity(currencyCode, BigDecimal.valueOf(rate.asDouble())));
                 }
         );
 

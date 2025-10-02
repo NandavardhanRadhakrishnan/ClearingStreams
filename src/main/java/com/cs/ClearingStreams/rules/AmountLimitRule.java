@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 
 @AllArgsConstructor
 @Component
-public class AmountLimitRule implements Rule{
+public class AmountLimitRule implements Rule {
 
     private AmountLimitRepository amountLimitRepository;
     private ExchangeRateRepository exchangeRateRepository;
@@ -26,7 +26,7 @@ public class AmountLimitRule implements Rule{
     public RuleResult<CanonicalTransactionDto> apply(CanonicalTransactionDto dto) {
         BigDecimal limitInCurrency = amountLimitRepository.findAmountLimitEntitiesByTransactionType(dto.getType()).getAmountLimit()
                 .multiply(exchangeRateRepository.findExchangeRateEntityByCurrencyCode(dto.getCurrency().toString()));
-        if(dto.getAmount().compareTo(limitInCurrency) > 0){
+        if (dto.getAmount().compareTo(limitInCurrency) > 0) {
             String message = dto.getType().toString() + " does not allow more than " + limitInCurrency;
             return RuleResult.fail(dto, getName(), message, CanonicalTransactionDto.Fields.amount);
         }
