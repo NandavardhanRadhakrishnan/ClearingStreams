@@ -18,11 +18,17 @@ public class AmountLimitRule implements Rule{
     private ExchangeRateRepository exchangeRateRepository;
 
     @Override
-    public RuleResult<String> apply(CanonicalTransactionDto dto) {
-        BigDecimal limitInCurrency = amountLimitRepository.findAmountLimitEntitiesByTransactionType(dto.getType().toString()).getAmountLimit()
+    public String getName() {
+        return "AMOUNT_LIMIT";
+    }
+
+    @Override
+    public RuleResult<CanonicalTransactionDto> apply(CanonicalTransactionDto dto) {
+        BigDecimal limitInCurrency = amountLimitRepository.findAmountLimitEntitiesByTransactionType(dto.getType()).getAmountLimit()
                 .multiply(exchangeRateRepository.findExchangeRateEntityByCurrencyCode(dto.getCurrency().toString()));
         if(dto.getAmount().compareTo(limitInCurrency) > 0){
-            return RuleResult.fail(dto.getType().toString() + " does not allow more than " + limitInCurrency);
+            String message = dto.getType().toString() + " does not allow more than " + limitInCurrency;
+            return RuleResult.fail(dto, getName(), message, CanonicalTransactionDto.Fields.amount);
         }
 
         return RuleResult.pass();

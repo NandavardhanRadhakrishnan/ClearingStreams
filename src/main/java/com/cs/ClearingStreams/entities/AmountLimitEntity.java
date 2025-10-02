@@ -1,5 +1,6 @@
 package com.cs.ClearingStreams.entities;
 
+import com.cs.ClearingStreams.constants.enums.TransactionType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +16,6 @@ public class AmountLimitEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String transactionType;
+    private TransactionType transactionType;
     private BigDecimal amountLimit;
 }

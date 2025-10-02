@@ -5,6 +5,6 @@ import com.cs.ClearingStreams.dtos.RuleResult;
 
 public interface Rule {
 
-    public RuleResult apply(CanonicalTransactionDto dto);
-
+    String getName();
+    RuleResult<CanonicalTransactionDto> apply(CanonicalTransactionDto dto);
 }

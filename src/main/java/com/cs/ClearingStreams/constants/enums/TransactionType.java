@@ -1,4 +1,4 @@
-package com.cs.ClearingStreams.constants;
+package com.cs.ClearingStreams.constants.enums;
 
 public enum TransactionType {
     WIRE,
