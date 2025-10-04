@@ -1,11 +1,11 @@
 package com.cs.ClearingStreams.rules;
 
 import com.cs.ClearingStreams.dtos.CanonicalTransactionDto;
-import com.cs.ClearingStreams.dtos.RuleResult;
+import com.cs.ClearingStreams.dtos.CanonicalResponseDto;
 
 public interface Rule {
 
     String getName();
 
-    RuleResult<CanonicalTransactionDto> apply(CanonicalTransactionDto dto);
+    CanonicalResponseDto<CanonicalTransactionDto> apply(CanonicalTransactionDto dto);
 }

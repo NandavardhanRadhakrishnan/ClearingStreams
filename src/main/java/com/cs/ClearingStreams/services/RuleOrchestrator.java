@@ -1,7 +1,7 @@
 package com.cs.ClearingStreams.services;
 
 import com.cs.ClearingStreams.dtos.CanonicalTransactionDto;
-import com.cs.ClearingStreams.dtos.RuleResult;
+import com.cs.ClearingStreams.dtos.CanonicalResponseDto;
 import com.cs.ClearingStreams.rules.Rule;
 import com.cs.ClearingStreams.rules.RuleFactory;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +16,9 @@ public class RuleOrchestrator {
 
     private final RuleFactory ruleFactory;
 
-    public List<RuleResult<CanonicalTransactionDto>> validate(CanonicalTransactionDto dto) {
+    public List<CanonicalResponseDto<CanonicalTransactionDto>> validate(CanonicalTransactionDto dto) {
 
-        List<RuleResult<CanonicalTransactionDto>> results = new ArrayList<>();
+        List<CanonicalResponseDto<CanonicalTransactionDto>> results = new ArrayList<>();
         List<Rule> rules = ruleFactory.getRulesForType(dto.getType());
 
         for (Rule rule : rules) {

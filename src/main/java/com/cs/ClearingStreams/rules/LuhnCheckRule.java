@@ -2,7 +2,7 @@ package com.cs.ClearingStreams.rules;
 
 import com.cs.ClearingStreams.dtos.CanonicalTransactionDto;
 import com.cs.ClearingStreams.dtos.AccountDto;
-import com.cs.ClearingStreams.dtos.RuleResult;
+import com.cs.ClearingStreams.dtos.CanonicalResponseDto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -17,11 +17,11 @@ public class LuhnCheckRule implements Rule {
     }
 
     @Override
-    public RuleResult<CanonicalTransactionDto> apply(CanonicalTransactionDto dto) {
-        List<RuleResult.RuleFailure> failures = new ArrayList<>();
+    public CanonicalResponseDto<CanonicalTransactionDto> apply(CanonicalTransactionDto dto) {
+        List<CanonicalResponseDto.RuleFailure> failures = new ArrayList<>();
 
         if (!luhnCheck(dto.getPayer().getAccount())) {
-            failures.add(new RuleResult.RuleFailure(
+            failures.add(new CanonicalResponseDto.RuleFailure(
                     getName(),
                     "Invalid account number",
                     CanonicalTransactionDto.Fields.payer,
@@ -30,7 +30,7 @@ public class LuhnCheckRule implements Rule {
         }
 
         if (!luhnCheck(dto.getPayee().getAccount())) {
-            failures.add(new RuleResult.RuleFailure(
+            failures.add(new CanonicalResponseDto.RuleFailure(
                     getName(),
                     "Invalid account number",
                     CanonicalTransactionDto.Fields.payee,
@@ -38,7 +38,7 @@ public class LuhnCheckRule implements Rule {
             ));
         }
 
-        return failures.isEmpty() ? RuleResult.pass() : RuleResult.fail(dto, failures);
+        return failures.isEmpty() ? CanonicalResponseDto.pass() : CanonicalResponseDto.fail(dto, failures);
     }
 
     public boolean luhnCheck(String accountNo) {

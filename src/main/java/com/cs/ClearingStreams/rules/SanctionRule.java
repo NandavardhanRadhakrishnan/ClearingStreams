@@ -2,7 +2,7 @@ package com.cs.ClearingStreams.rules;
 
 import com.cs.ClearingStreams.dtos.AccountDto;
 import com.cs.ClearingStreams.dtos.CanonicalTransactionDto;
-import com.cs.ClearingStreams.dtos.RuleResult;
+import com.cs.ClearingStreams.dtos.CanonicalResponseDto;
 import com.cs.ClearingStreams.repositories.SanctionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,12 +22,12 @@ public class SanctionRule implements Rule {
     }
 
     @Override
-    public RuleResult<CanonicalTransactionDto> apply(CanonicalTransactionDto dto) {
+    public CanonicalResponseDto<CanonicalTransactionDto> apply(CanonicalTransactionDto dto) {
         List<String> sanctioned = sanctionRepository.findCountryCodesByActiveTrue();
-        List<RuleResult.RuleFailure> failures = new ArrayList<>();
+        List<CanonicalResponseDto.RuleFailure> failures = new ArrayList<>();
 
         if (sanctioned.contains(dto.getPayer().getCountry().getCountry())) {
-            failures.add(new RuleResult.RuleFailure(
+            failures.add(new CanonicalResponseDto.RuleFailure(
                     getName(),
                     "Transaction involves sanctioned country",
                     CanonicalTransactionDto.Fields.payer,
@@ -36,7 +36,7 @@ public class SanctionRule implements Rule {
         }
 
         if (sanctioned.contains(dto.getPayee().getCountry().getCountry())) {
-            failures.add(new RuleResult.RuleFailure(
+            failures.add(new CanonicalResponseDto.RuleFailure(
                     getName(),
                     "Transaction involves sanctioned country",
                     CanonicalTransactionDto.Fields.payee,
@@ -44,6 +44,6 @@ public class SanctionRule implements Rule {
             ));
         }
 
-        return failures.isEmpty() ? RuleResult.pass() : RuleResult.fail(dto, failures);
+        return failures.isEmpty() ? CanonicalResponseDto.pass() : CanonicalResponseDto.fail(dto, failures);
     }
 }

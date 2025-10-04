@@ -11,24 +11,24 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RuleResult<T> {
+public class CanonicalResponseDto<T> {
 
     private boolean success;
     private T data;
     private List<RuleFailure> failures;
 
 
-    public static <T> RuleResult<T> pass() {
-        return new RuleResult<>(true, null, null);
+    public static <T> CanonicalResponseDto<T> pass() {
+        return new CanonicalResponseDto<>(true, null, null);
     }
 
-    public static <T> RuleResult<T> fail(T data, String code, String message, String... fieldNames) {
+    public static <T> CanonicalResponseDto<T> fail(T data, String code, String message, String... fieldNames) {
         String fieldPath = String.join(".", fieldNames);
-        return new RuleResult<>(false, data, List.of(new RuleFailure(code, message, fieldPath)));
+        return new CanonicalResponseDto<>(false, data, List.of(new RuleFailure(code, message, fieldPath)));
     }
 
-    public static <T> RuleResult<T> fail(T data, List<RuleFailure> failures) {
-        return new RuleResult<>(false, data, failures);
+    public static <T> CanonicalResponseDto<T> fail(T data, List<RuleFailure> failures) {
+        return new CanonicalResponseDto<>(false, data, failures);
     }
 
     @Data
