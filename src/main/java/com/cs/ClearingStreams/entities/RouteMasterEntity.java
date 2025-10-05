@@ -20,5 +20,6 @@ public class RouteMasterEntity {
     @Type(JsonType.class)
     @Column(columnDefinition = "json")
     private JsonNode criteria;
+    private boolean isMutating;
     private boolean active;
 }

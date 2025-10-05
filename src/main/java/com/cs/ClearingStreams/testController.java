@@ -3,6 +3,7 @@ package com.cs.ClearingStreams;
 import com.cs.ClearingStreams.dtos.CanonicalTransactionDto;
 import com.cs.ClearingStreams.dtos.CanonicalResponseDto;
 import com.cs.ClearingStreams.repositories.RuleMasterRepository;
+import com.cs.ClearingStreams.services.routes.RouteCriteriaEvaluator;
 import com.cs.ClearingStreams.services.rules.AmountLimitRule;
 import com.cs.ClearingStreams.services.rules.LuhnCheckRule;
 import com.cs.ClearingStreams.services.rules.SanctionRule;
@@ -10,6 +11,9 @@ import com.cs.ClearingStreams.services.ExchangeRateService;
 import com.cs.ClearingStreams.services.RouteEngineService;
 import com.cs.ClearingStreams.services.RuleOrchestratorService;
 import com.cs.ClearingStreams.util.kafka.KafkaUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,12 +34,18 @@ public class testController {
     private final RuleMasterRepository ruleMasterRepository;
     private final RuleOrchestratorService ruleOrchestratorService;
     private final RouteEngineService routeEngineService;
+    private final RouteCriteriaEvaluator routeCriteriaEvaluator;
+    private final ObjectMapper mapper;
     private final KafkaUtil kafkaUtil;
 
     @GetMapping("/CTD")
     public ResponseEntity<CanonicalResponseDto<CanonicalTransactionDto>> get(
             @RequestBody CanonicalTransactionDto dto
-    ) {
+    ) throws JsonProcessingException {
+        JsonNode criteria = mapper.readTree("""
+                {"field":"currency", "eq":"INR"}
+                """);
+        System.out.println(routeCriteriaEvaluator.matches(dto,criteria,null));
         routeEngineService.publishToPostValidation(dto);
         return ResponseEntity.ok(amountLimitRule.apply(dto));
     }
