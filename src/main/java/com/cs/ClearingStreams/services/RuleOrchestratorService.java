@@ -2,8 +2,8 @@ package com.cs.ClearingStreams.services;
 
 import com.cs.ClearingStreams.dtos.CanonicalTransactionDto;
 import com.cs.ClearingStreams.dtos.CanonicalResponseDto;
-import com.cs.ClearingStreams.rules.Rule;
-import com.cs.ClearingStreams.rules.RuleFactory;
+import com.cs.ClearingStreams.services.rules.Rule;
+import com.cs.ClearingStreams.services.rules.RuleFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class RuleOrchestrator {
+public class RuleOrchestratorService {
 
     private final RuleFactory ruleFactory;
 

@@ -1,4 +1,4 @@
-package com.cs.ClearingStreams.rules;
+package com.cs.ClearingStreams.services.rules;
 
 import com.cs.ClearingStreams.dtos.CanonicalTransactionDto;
 import com.cs.ClearingStreams.dtos.AccountDto;

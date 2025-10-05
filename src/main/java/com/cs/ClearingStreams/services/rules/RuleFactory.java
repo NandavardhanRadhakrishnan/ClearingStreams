@@ -1,10 +1,7 @@
-package com.cs.ClearingStreams.rules;
+package com.cs.ClearingStreams.services.rules;
 
 import com.cs.ClearingStreams.constants.enums.TransactionType;
 import com.cs.ClearingStreams.repositories.RuleMasterRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
