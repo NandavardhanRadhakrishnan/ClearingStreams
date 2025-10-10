@@ -1,6 +1,8 @@
 package com.cs.ClearingStreams.services.routes;
 
 import com.cs.ClearingStreams.dtos.CanonicalTransactionDto;
+import com.cs.ClearingStreams.util.logging.LogMutation;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.kafka.annotation.KafkaListener;
 
 public abstract class AbstractMutationService {
@@ -15,6 +17,6 @@ public abstract class AbstractMutationService {
             groupId = "${spring.kafka.consumer.group-id}"
     )
     public void listen(CanonicalTransactionDto dto){
-        apply(dto);
+        ((AbstractMutationService) AopContext.currentProxy()).apply(dto);
     }
 }

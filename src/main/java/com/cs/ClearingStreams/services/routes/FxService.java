@@ -4,6 +4,7 @@ import com.cs.ClearingStreams.dtos.CanonicalTransactionDto;
 import com.cs.ClearingStreams.repositories.ExchangeRateRepository;
 import com.cs.ClearingStreams.services.RouteEngineService;
 import com.cs.ClearingStreams.util.kafka.KafkaTopics;
+import com.cs.ClearingStreams.util.logging.LogMutation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,11 @@ public class FxService extends AbstractMutationService {
 
     @Override
     public String getTopic() {
-        return "${kafka.topics.fxService}";
+        return kafkaTopics.getTopics().get("fxService");
     }
 
 
+    @LogMutation
     @Override
     public void apply(CanonicalTransactionDto dto) {
         dto.setAmount(dto.getAmount().multiply(exchangeRateRepository.findExchangeRateEntityByCurrencyCode(dto.getCurrency().toString())));

@@ -112,7 +112,7 @@ public class RouteCriteriaEvaluator {
 
         return switch (operator) {
             case "eq" -> Objects.equals(normLeft, normRight);
-            case "neq" -> !Objects.equals(normLeft, normRight);
+            case "ne" -> !Objects.equals(normLeft, normRight);
             case "gt" -> cmp > 0;
             case "gte" -> cmp >= 0;
             case "lt" -> cmp < 0;
