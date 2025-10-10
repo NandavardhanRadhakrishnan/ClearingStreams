@@ -27,7 +27,7 @@ public class RouteEngineService {
     }
 
     @KafkaListener(
-            topics = "${kafka.topic.topics.postValidation}",
+            topics = "${kafka.topics.postValidation}",
             groupId = "${spring.kafka.consumer.group-id}"
     )
     private void route(CanonicalTransactionDto dto){

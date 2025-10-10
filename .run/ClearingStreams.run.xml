@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ClearingStreams" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.cs.ClearingStreams.ClearingStreamsApplication" />
+    <module name="ClearingStreams" />
+    <option name="VM_PARAMETERS" value="-Duser.timezone=Asia/Kolkata -Dfile.encoding=UTF-8 -Djava.awt.headless=true" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

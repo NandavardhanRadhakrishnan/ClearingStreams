@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ClearingStreams Elastic" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.cs.ClearingStreams.ClearingStreamsApplication" />
+    <module name="ClearingStreams" />
+    <option name="VM_PARAMETERS" value="-Duser.timezone=Asia/Kolkata -Dfile.encoding=UTF-8 -Djava.awt.headless=true -javaagent:C:\Users\prkna\.m2\repository\co\elastic\apm\elastic-apm-agent\1.55.0\elastic-apm-agent-1.55.0.jar -Delastic.apm.server_url=http://localhost:8200 -Delastic.apm.service_name=clearing-streams -Delastic.apm.application_packages=com.cs.clearingstreams -Delastic.apm.environment=local -Delastic.apm.capture_body=all" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
