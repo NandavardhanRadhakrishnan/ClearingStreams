@@ -6,19 +6,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 @RequiredArgsConstructor
 public class KafkaUtil {
 
     private final KafkaTemplate<String, CanonicalTransactionDto> kafkaTemplate;
 
-    private final KafkaTemplate<String, String > loggerKafkaTemplate;
+    private final KafkaTemplate<String, Map<String, Object>> loggerKafkaTemplate;
 
     public void publish(String topic, CanonicalTransactionDto dto) {
         kafkaTemplate.send(topic, dto.getId(), dto);
     }
 
-    public void publishLog(String topic, String message) {
+    public void publishLog(String topic, Map<String, Object> message) {
         loggerKafkaTemplate.send(topic, message);
     }
 }

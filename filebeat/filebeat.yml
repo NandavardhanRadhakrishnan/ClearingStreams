@@ -1,0 +1,38 @@
+filebeat.inputs:
+  - type: kafka
+    enabled: true
+    hosts:
+      - "kafka:29092"
+    topics: ["log-mutation", "log-route"]
+    group_id: "log-group"
+    client_id: "filebeat-kafka-client"
+    version: "2.1.0"
+    auto_offset_reset: "earliest"
+    consumer_threads: 1
+    parsers:
+      - ndjson:
+          target: "data"  # Wrap JSON in 'data' field
+          add_error_key: true
+          error_key: "errorMessage"
+          error_message: "Failed to parse JSON"
+    processors:
+      - drop_fields:
+          fields: ["message", "@timestamp", "kafka", "ecs", "host", "agent", "input"]  # Drop all metadata fields
+          ignore_missing: true
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+  index: "logs-kafka"
+
+setup.template.name: "logs-kafka"
+setup.template.pattern: "logs-kafka*"
+setup.ilm.enabled: false
+setup.ilm.check_exists: false  # Explicitly disable ILM
+
+logging.level: debug
+logging.to_files: true
+logging.files:
+  path: /usr/share/filebeat/logs
+  name: filebeat.log
+  keepfiles: 7
+  permissions: 0644

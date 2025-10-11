@@ -46,8 +46,7 @@ public class LogRouteDecision {
             routeEvent.put("failure",failure);
         }
 
-        String json = objectMapper.writeValueAsString(routeEvent);
-        kafkaUtil.publishLog(kafkaTopics.getTopics().get("logRoute"), json);
+        kafkaUtil.publishLog(kafkaTopics.getTopics().get("logRoute"), routeEvent);
 
     }
 

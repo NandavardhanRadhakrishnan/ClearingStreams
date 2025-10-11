@@ -42,8 +42,7 @@ public class LogMutationAspect {
         mutationEvent.put("before", before);
         mutationEvent.put("after", after);
 
-        String json = objectMapper.writeValueAsString(mutationEvent);
-        kafkaUtil.publishLog(kafkaTopics.getTopics().get("logMutation"), json);
+        kafkaUtil.publishLog(kafkaTopics.getTopics().get("logMutation"), mutationEvent);
 
         return result;
     }
